@@ -37,6 +37,7 @@ updateData_test();//用来模拟3轴数据上传，验证上层服务，与底层驱动无关。
 updateData(); //将实际得到的3轴数据赋值给变量static AxesRaw_t data，以实现3轴数据实时上传。
 
 
+Git说明：自DA14580_RUGHWATCH_1.4.2 版本使用Git版本控制进行管理。----2016.1.8   高少雄
 
 
 
