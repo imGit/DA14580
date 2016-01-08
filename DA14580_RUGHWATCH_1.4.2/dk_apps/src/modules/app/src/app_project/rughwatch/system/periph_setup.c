@@ -185,7 +185,7 @@ void periph_init(void)  // set i2c, spi, uart, uart2 serial clks
 	
 	Uart_init();
 	
-//	MPU_Init();		
+//	MPU_Init();//function of init MPU6560		
 }
 
 #endif //_PERIPH_SETUP_H_
