@@ -1,0 +1,1514 @@
+#Change log file for BTLE_580 distribution
+#
+-------------------------------------------------------------------------
+#Format of the log entries:
+#
+#Date: DD/MM/YYYY
+#Committed by: user-name
+#Type: FEATURE or MAJOR_RESTRUCTURING or BUG_FIX or TUNING or RELEASE
+#ver: the tagged version where the corresponding changes can be found
+#
+#Files: list of files committed, with full path
+#       (e.g. dk_apps/full_emb.uvproj), each one in separate line.
+#
+#Comment: A brief comment regarding the changes that were committed.
+#
+#---------------------------------------------------------------------------
+===========================================================================
+Date: 24/03/2014
+Committed by: Panagiotis Panou
+Type: FEATURE
+#
+#Files
+#	ble_sw/tools/connection_manager/application/ui/HwHciInterface.cs
+#	ble_sw/tools/connection_manager/application/ui/MainForm.Designer.cs
+#	ble_sw/tools/connection_manager/application/ui/MainForm.cs
+#	ble_sw/tools/prod_test/prod_test_cmds/prodtest/commands.c
+#	ble_sw/tools/prod_test/prod_test_cmds/prodtest/main.c
+Comment:
+
+    Added the production test command "disable XTAL output on P0_5" to:
+    1. Production test tool
+    2. Connection Manager
+
+===========================================================================
+Date: 24/03/2014
+Committed by: damaskakos manos
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/misc/rom_symdef.txt
+#	ble_sw/dk_apps/misc/rom_symdef_kb.txt
+
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_sleep.c
+Comment:
+
+    Adding the required modifications to the symdef files due to the change in
+    the sleep API.
+
+
+    Updated sleep API so that and sleep mode changes that happen while
+    app_force_active_mode() has been called and until app_restore_sleep_mode()
+    are not executed but simply cached. Thus, when app_restore_sleep_mode() is
+    eventually called, the latest sleep mode that the application has set will
+    be programmed.
+
+==========================================================================
+Date 24/03/2014
+Committed by:  Konstantinos Dagres
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/keil_projects/accelerometer/dice/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe_usb/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe_spi/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe_usb/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fh/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/spota/spotar_fh/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/stream/server_tx/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/template/template_fh/da14580_config.h
+#	ble_sw/dk_apps/src/plf/refip/src/arch/arch.h
+#	ble_sw/dk_apps/src/modules/app/src/app_utils/app_console/app_console.c
+Comment:
+
+      Add CFG_CALIBRATED_AT_FAB define directive in da14580_config.h
+      configuration files for all projects.
+
+
+     Change allocation area in app_console.c for serial logging from
+     KE_MEM_KE_MSG to KE_MEM_NON_RETENTION
+
+
+===========================================================================
+Date: 24/03/2014
+Committed by: damaskakos manos
+Type: FEATURE
+#
+#Files
+#	ble_sw/tools/secondary_bootloader
+Comment:
+
+    -Renamed fast_bootload to secondary_bootloader
+
+===========================================================================
+Date: 24/03/2014
+Committed by: Konstantinos Dagres
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_system.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/sample128/sample128.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/sample128/sample128.h
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/sample128/sample128_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/sample128/sample128_task.h
+#	ble_sw/dk_apps/src/modules/app/api/app_api.h
+#	ble_sw/dk_apps/src/modules/app/api/app_task_handlers.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fh/app_proxr_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fh/app_proxr_proj.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/smart_tag/app_smarttag_proj.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/arch.h
+#	ble_sw/dk_apps/src/plf/refip/src/arch/boot/rvds/system_ARMCM0.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_system.c
+Comment:
+
+      Read boost mode from ANA_STATUS_REG to apply boost mode prefered config.
+      CFG_BOOST must not be used.
+
+
+      1. Add deep sleep in proximity reporter project. Device will enter deep
+      sleep after 3 mins of advertising. Wakes up with K2 push button.
+      2. Sample128 profile. Cahracteristic with notification properties added.
+      3. CFG_BOOST must be added in configuration to enable boost mode.
+      4. UNCALIBRATED_AT_FAB set by default to 0.
+
+===========================================================================
+Date: 21/03/2014
+Committed by: Panagiotis Panou
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/misc/rom_symdef.txt
+#	ble_sw/dk_apps/misc/rom_symdef_ES5_Prod_Test.txt
+#	ble_sw/dk_apps/misc/rom_symdef_hci_spi.txt
+#	ble_sw/dk_apps/misc/rom_symdef_kb.txt
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_system.c
+#	ble_sw/tools/fast_bootloader/src/bootloader.c
+#	ble_sw/tools/fast_bootloader/src/uart.c
+#	ble_sw/tools/flash_programmer/src/programmer.c
+Comment:
+
+    From Yannis Papanikos:
+    1. minor fixes in fast_bootloader and flash_programmer
+    2. removed SWTIM_handler from all rom_symdef files
+    3. enabled RC32 clk checking before radio iinit
+
+===========================================================================
+Date: 21/03/2014
+Committed by: Vassilis Kaloudis
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/scatterfiles/scatterfile_common.sct
+#	ble_sw/dk_apps/src/plf/refip/src/arch/arch_sleep.h
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_sleep.c
+Comment:
+
+    1. Corrected the size of 'timeout_table' scetion (0x80 instead of 0x70).
+    2. Added function app_ble_force_wakeup() in arch_sleep.c (Sleep API).
+
+
+    Committing header file SW version 3.0..
+===========================================================================
+Date: 18/03/2014
+Committed by: Panagiotis Panou
+Type: FEATURE
+#
+#Files
+#	ble_sw/host_apps/windows/spota/initiator/include/app.h
+#	ble_sw/host_apps/windows/spota/initiator/src/app.c
+#	ble_sw/host_apps/windows/spota/initiator/src/app_task.c
+Comment:
+
+    SPOTA initiator windows host application:
+      1. Modified to use 128-bit UUIDs for characteristics.
+      2. Added usage message
+
+===========================================================================
+Date: 18/03/2014
+Committed by: damaskakos manos
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/spotar/app_spotar.c
+#	ble_sw/dk_apps/keil_projects/spota/spotar_fh/da14580_config.h
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/spota/spotar/spotar.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/spota/spotar/spotar.h
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/spota/spotar/spotar_task.c
+Comment:
+
+    - Added pota_new_pd[]  to spotar_patch_area to be controlled by #define
+      SPOTAR_PATCH_AREA
+
+    - Modified SPOTAR to use 128bit UUID
+
+===========================================================================
+Date: 17/03/2014
+Committed by: damaskakos manos
+Type: FEATURE
+#
+#Files
+#	ble_sw/tools/bootloader/bootloader.sct
+#	ble_sw/tools/bootloader/bootloader.uvproj
+#	ble_sw/tools/bootloader/includes/periph_setup.h
+#	ble_sw/tools/bootloader/src/bootloader.c
+#	ble_sw/tools/bootloader/startup/startup_CMSDK_CM0.s
+#	ble_sw/tools/bootloader/startup/system_CMSDK.c
+#	ble_sw/tools/bootloader/sysram.ini
+#	ble_sw/tools/fast_bootloader/fast_bootloader.uvproj
+#	ble_sw/tools/fast_bootloader/includes/periph_setup.h
+#	ble_sw/tools/fast_bootloader/includes/timer.h
+#	ble_sw/tools/fast_bootloader/includes/uart.h
+#	ble_sw/tools/fast_bootloader/src/bootloader.c
+#	ble_sw/tools/fast_bootloader/src/timer.c
+#	ble_sw/tools/fast_bootloader/src/uart.c
+#	ble_sw/tools/fast_bootloader/startup/bootloader.sct
+#	ble_sw/tools/fast_bootloader/startup/startup_CMSDK_CM0.s
+#	ble_sw/tools/fast_bootloader/startup/sysram.ini
+#	ble_sw/tools/fast_bootloader/startup/system_CMSDK.c
+#	ble_sw/tools/flash_programmer/include/programmer.h
+#	ble_sw/tools/flash_programmer/src/programmer.c
+Comment:
+
+    - Renamed bootload to fast_bootloader
+    - Updated flash_programmer
+
+===========================================================================
+Date: 17/03/2014
+Committed by: damaskakos manos
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/accel/accel_task.c
+#	ble_sw/dk_apps/src/ip/ble/ll/src/rwble/rwble.c
+#	ble_sw/dk_apps/src/ip/ble/ll/src/rwble/rwble_config.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fh/app_proxr_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/smart_tag/app_smarttag_proj.c
+#	ble_sw/dk_apps/src/modules/rwip/api/rwip_config.h
+#	ble_sw/dk_apps/src/plf/refip/src/arch/boot/rvds/system_ARMCM0.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_system.c
+Comment:
+
+     Set rcx_period global as retained.
+     Add ltk generation in proxr and smarttag projects.
+     Remove SystemCoreClock variable.
+===========================================================================
+Date: 14/03/2014
+Committed by: damaskakos manos
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/keil_projects/accelerometer/dice/fh_dice_demo.uvproj
+#	ble_sw/dk_apps/keil_projects/hid/kbd_tester/fh_kbd_tester.uvproj
+#	ble_sw/dk_apps/keil_projects/prod_test/prod_test_ES5/prod_es5.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe/fe_proxm_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe_usb/fe_usb_proxm_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe/fe_proxr.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe_spi/fe_proxr_spi.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe_usb/fe_usb_proxr.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fh/fh_proxr_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/smart_tag/smart_tag/smart_tag.uvproj
+#	ble_sw/dk_apps/keil_projects/spota/spotar_fh/fh_spotar.uvproj
+#	ble_sw/dk_apps/keil_projects/stream/server_tx/fh_stream_tx.uvproj
+#	ble_sw/dk_apps/keil_projects/template/template_fh/fh_project_template.uvproj
+
+Comment:
+
+    All Keil projects under dk_apps use the linker options --any_placement=best_fit --datacompressor off
+
+===========================================================================
+Date: 14/03/2014
+Committed by: damaskakos manos
+Type: FEATURE
+#
+#Files
+#	ble_sw/tools/connection_manager/application/hci_lib/include/host_hci.h
+#	ble_sw/tools/connection_manager/application/hci_lib/src/ble_msg.c
+#	ble_sw/tools/connection_manager/application/hci_lib/src/hci_task.c
+#	ble_sw/tools/connection_manager/application/hci_lib/src/host_hci.c
+#	ble_sw/tools/connection_manager/application/ui/HciInterface.cs
+#	ble_sw/tools/connection_manager/application/ui/HwHciInterface.cs
+#	ble_sw/tools/connection_manager/application/ui/MainForm.Designer.cs
+#	ble_sw/tools/connection_manager/application/ui/MainForm.cs
+#	ble_sw/tools/connection_manager/application/ui/MainForm.resx
+#	ble_sw/tools/connection_manager/application/ui/Properties/AssemblyInfo.cs
+Comment:
+
+    Connection Manager:
+      1. Added support for sleep and XTAL trimming customer production test commands.
+      2. Changed version to 3.0.2.
+===========================================================================
+Date: 14/03/2014
+Committed by: damaskakos manos
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/anp/anps/anps.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/anp/anps/anps_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/bas/basc/basc_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/bas/bass/bass_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/cscp/cscpc/cscpc_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/cscp/cscps/cscps.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/cscp/cscps/cscps_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/dis/disc/disc_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/find/findl/findl_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/hogp/hogpbh/hogpbh_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/hogp/hogpd/hogpd_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/htp/htpt/htpt.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/htp/htpt/htpt_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/pasp/pasps/pasps.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/pasp/pasps/pasps_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/prf_types.h
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/prf_utils.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/prf_utils.h
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/prox/proxr/proxr_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/rscp/rscps/rscps.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/rscp/rscps/rscps_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/scpp/scpps/scpps_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/tip/tipc/tipc_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/tip/tips/tips.c
+Comment:
+
+    Merged RW HL v6.7.9 code for the following profiles: ANP, BAS, CSCP, DIS, FMP, HOGP, HTP, PASP, PXP, RSCP, SCPP, TIP
+
+===========================================================================
+Date: 12/03/2014
+Committed by:  George Zapantes
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/keil_projects/prod_test/prod_test_ES5/da14580_config.h
+#	ble_sw/dk_apps/misc/rom_symdef_ES5_Prod_Test.txt
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/custom_gtl_hci.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/customer_prod.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/customer_prod.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/system/app_sleep.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/system/periph_setup.c.bak
+Comment:
+
+    Production test added test cases for sleep modes and xtal trimming
+
+===========================================================================
+Date: 10/03/2014
+Committed by: Panagiotis Panou
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/jump_table.c
+Comment:
+
+    dk_apps: jump_table[47] now points to custom_nvds_get_func instead of the ROM function nvds_get_func.
+
+
+ 
+===========================================================================
+Date: 07/03/2014
+Committed by: damaskakos manos
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/customer_prod.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/customer_prod.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/system/app_sleep.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/system/periph_setup.h
+Comment:
+
+     Fix errors with global variabes' memory adresses in customer prod test.
+
+
+===========================================================================
+Date: 06/03/2014
+Committed by: damaskakos manos
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/fh_keyboard_sdk.uvproj
+#	ble_sw/dk_apps/scatterfiles/scatterfile_common.sct
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/spota/spotar/spotar.h
+#	ble_sw/dk_apps/src/modules/app/api/app_api.h
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/spotar/app_spotar.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/spotar/app_spotar_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_fsm.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_fsm.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_key_matrix.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/system/periph_setup.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/spotar_fh/app_spotar_proj.h
+#	ble_sw/dk_apps/src/modules/rwip/api/rwip_config.h
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_main.c
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/fh_keyboard_sdk.uvproj
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_config.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_proj.c
+Comment:
+
+    Added SPOTAR to Keyboards project. Supports only SYSRAM patching
+
+
+===========================================================================
+Date: 05/03/2014
+Committed by: Vassilis Kaloudis
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/fh_keyboard_sdk.uvproj
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_proj.c
+Comment:
+ 
+    Fixed a bug in app_disconnect_func() that caused the disconnection code not to be executed when in APP_UPDATE_PARAM or APP_SECURITY states.
+
+
+===========================================================================
+Date: 05/03/2014
+Committed by:  Isaak Solomonidis
+Type: FEATURE
+#
+#Files
+#	ble_sw/peripheral_examples/580_peripheral_setup.uvproj
+#	ble_sw/peripheral_examples/include/eeprom_test.h
+#	ble_sw/peripheral_examples/include/example_img_fesr.h
+#	ble_sw/peripheral_examples/include/spi_full_emb_sysram.h
+#	ble_sw/peripheral_examples/src/DA1450_examples.c
+#	ble_sw/peripheral_examples/src/eeprom_test.c
+#	ble_sw/peripheral_examples/src/example_img_fesr.c
+#	ble_sw/peripheral_examples/src/spi_test.c
+Comment:
+
+     Added EEPROM image Example in Peripheral Examples
+     spi_full_emb_sysram.h renamed to example_img_fesr.h.
+     The image from the latter is moved to new file example_img_fesr.c
+
+ ===========================================================================
+Date: 04/03/2014
+Committed by: Vassilis Kaloudis
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/fh_keyboard_sdk.uvproj
+#	ble_sw/dk_apps/patch_code/obj/smpc.obj
+#	ble_sw/dk_apps/patch_code/obj/smpc_task.obj
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_proj.c
+#	ble_sw/dk_apps/src/modules/nvds/src/nvds.c
+#	ble_sw/dk_apps/src/modules/rf/src/rf_580.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_main.c
+Comment:
+
+    Fixed patches in arch_main.c
+
+
+
+===========================================================================
+Date: 04/03/2014
+Committed by:  Vassilis Kaloudis
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/da14580_config.h
+#	ble_sw/dk_apps/src/modules/app/api/app_task_handlers.h
+Comment:
+
+    Fixed a bug with HID ENC timer.
+	 
+===========================================================================
+Date: 04/03/2014
+Committed by: damaskakos manos
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/fh_keyboard_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/unused.txt
+#	ble_sw/dk_apps/patch_code/obj/atts_task.obj
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_proj.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_main.c
+Comment:
+
+    Fix l2cc_pdu_recv_ind_handler patch.
+	 
+ 
+===========================================================================
+Date: 28/02/2014
+Committed by: Konstantinos Dagres
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/keil_projects/accelerometer/dice/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/accelerometer/dice/da14580_scatter_config.h
+#	ble_sw/dk_apps/keil_projects/accelerometer/dice/da14580_stack_config.h
+#	ble_sw/dk_apps/keil_projects/accelerometer/dice/fh_dice_demo.uvproj
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/fh_keyboard_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/prod_test/prod_test_ES5/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/prod_test/prod_test_ES5/da14580_scatter_config.h
+#	ble_sw/dk_apps/keil_projects/prod_test/prod_test_ES5/da14580_stack_config.h
+#	ble_sw/dk_apps/keil_projects/prod_test/prod_test_ES5/prod_es5.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe/da14580_scatter_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe/da14580_stack_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe/fe_proxm_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe_usb/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe_usb/da14580_scatter_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe_usb/da14580_stack_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe_usb/fe_usb_proxm_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe/da14580_scatter_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe/da14580_stack_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe/fe_proxr.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe_usb/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe_usb/da14580_scatter_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe_usb/da14580_stack_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe_usb/fe_usb_proxr.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fh/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fh/da14580_scatter_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fh/da14580_stack_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fh/fh_proxr_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/smart_tag/smart_tag/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/smart_tag/smart_tag/da14580_scatter_config.h
+#	ble_sw/dk_apps/keil_projects/smart_tag/smart_tag/da14580_stack_config.h
+#	ble_sw/dk_apps/keil_projects/smart_tag/smart_tag/smart_tag.uvproj
+#	ble_sw/dk_apps/keil_projects/spota/spotar_fh/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/spota/spotar_fh/da14580_scatter_config.h
+#	ble_sw/dk_apps/keil_projects/spota/spotar_fh/da14580_stack_config.h
+#	ble_sw/dk_apps/keil_projects/spota/spotar_fh/fh_spotar.uvproj
+#	ble_sw/dk_apps/keil_projects/stream/server_tx/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/stream/server_tx/da14580_scatter_config.h
+#	ble_sw/dk_apps/keil_projects/stream/server_tx/da14580_stack_config.h
+#	ble_sw/dk_apps/keil_projects/stream/server_tx/fh_stream_tx.uvproj
+#	ble_sw/dk_apps/keil_projects/template/template_fh/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/template/template_fh/da14580_scatter_config.h
+#	ble_sw/dk_apps/keil_projects/template/template_fh/da14580_stack_config.h
+#	ble_sw/dk_apps/keil_projects/template/template_fh/fh_project_template.uvproj
+#	ble_sw/dk_apps/misc/rom_symdef.txt
+#	ble_sw/dk_apps/misc/rom_symdef_ES5_Prod_Test.txt
+#	ble_sw/dk_apps/misc/rom_symdef_kb.txt
+#	ble_sw/dk_apps/scatterfiles/scatterfile_common.sct
+#	ble_sw/dk_apps/src/ip/ble/ll/src/controller/em/em_map_ble.h
+#	ble_sw/dk_apps/src/ip/ble/ll/src/rwble/rwble.c
+#	ble_sw/dk_apps/src/modules/app/api/app_api.h
+#	ble_sw/dk_apps/src/modules/app/api/app_task_handlers.h
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/smarttag_proxr/app_proxr.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/smarttag_proxr/app_proxr.h
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/smarttag_proxr/app_proxr_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/smarttag_proxr/app_proxr_task.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/customer_prod.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/smart_tag/app_smarttag_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/smart_tag/app_smarttag_proj.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/smart_tag/system/app_sleep.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/smart_tag/system/periph_setup.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/smart_tag/system/periph_setup.h
+#	ble_sw/dk_apps/src/modules/nvds/src/nvds.c
+#	ble_sw/dk_apps/src/modules/rwip/api/rwip_config.h
+#	ble_sw/dk_apps/src/modules/rwip/src/rwip.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/arch.h
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_main.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_system.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/jump_table.c
+Comment:
+
+      1. Add RCX20 support.
+      2. Add Smart Tag reference design project.
+      3. Apply new scatter file architecture to projects.
+
+===========================================================================
+Date: 28/02/2014
+Committed by: Vassilis Maniotis 
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_main.c
+Comment:
+
+    FIX. patch the correct l2cc_pdu_recv_ind_handler
+
+
+===========================================================================
+Date: 27/02/2014
+Committed by: Konstantinos Dagres
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/keil_projects/accelerometer/dice/fh_dice_demo.uvproj
+#	ble_sw/dk_apps/keil_projects/hid/kbd_tester/fh_kbd_tester.uvproj
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/fh_keyboard_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/prod_test/prod_test_ES5/prod_es5.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe_usb/fe_usb_proxm_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe/fe_proxr.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe_usb/fe_usb_proxr.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fh/fh_proxr_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/spota/spotar_fh/fh_spotar.uvproj
+#	ble_sw/dk_apps/keil_projects/stream/server_tx/fh_stream_tx.uvproj
+#	ble_sw/dk_apps/keil_projects/template/template_fh/fh_project_template.uvproj
+Comment:
+
+      Add atts_task.obj in projects.
+
+
+===========================================================================
+Date: 27/02/2014
+Committed by: Vassilis Maniotis
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe/fe_proxm_sdk.uvproj
+#	ble_sw/dk_apps/patch_code/obj/atts_task.obj
+#	ble_sw/dk_apps/patch_code/src/atts_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/cscp/cscpc/cscpc_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/cscp/cscps/cscps.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/cscp/cscps/cscps_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/cscp/cscps/cscps_task.h
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/glp/glp_common.h
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/glp/glpc/glpc.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/glp/glpc/glpc_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/glp/glps/glps.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/glp/glps/glps_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/prf_utils.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/rscp/rscps/rscps.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/rscp/rscps/rscps_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/rscp/rscps/rscps_task.h
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_main.c
+Comment:
+
+    Merged RW patch. See ticket #1640
+	 
+===========================================================================
+Date: 25/02/2014
+Committed by: Vassilis Kaloudis
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/hogp/hogpd/hogpd.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_matrix.h
+#	ble_sw/dk_apps/keil_projects/accelerometer/dice/fh_dice_demo.uvproj
+#	ble_sw/dk_apps/keil_projects/hid/kbd_tester/fh_kbd_tester.uvproj
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/fh_keyboard_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/prod_test/prod_test_ES5/prod_es5.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe/fe_proxm_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe_usb/fe_usb_proxm_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe/fe_proxr.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe_usb/fe_usb_proxr.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fh/fh_proxr_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/spota/spotar_fh/fh_spotar.uvproj
+#	ble_sw/dk_apps/keil_projects/stream/server_tx/fh_stream_tx.uvproj
+#	ble_sw/dk_apps/keil_projects/template/template_fh/fh_project_template.uvproj
+#	ble_sw/dk_apps/misc/rom_symdef.txt
+#	ble_sw/dk_apps/misc/rom_symdef_ES5_Prod_Test.txt
+#	ble_sw/dk_apps/misc/rom_symdef_kb.txt
+#	ble_sw/dk_apps/patch_code/obj/ke_task.obj
+#	ble_sw/dk_apps/patch_code/src/ke_task.c
+#	ble_sw/dk_apps/scatterfiles/exchange_mem_case23_0x0_es3.sct
+#	ble_sw/dk_apps/scatterfiles/exchange_mem_es3_spotar.sct
+#	ble_sw/dk_apps/scatterfiles/production_ES5.sct
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_fsm.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_matrix.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/i2c_eeprom.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/i2c_eeprom.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/system/periph_setup.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/system/periph_setup.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fh/app_proxr_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_utils/app_multi_bond/app_multi_bond.c
+#	ble_sw/dk_apps/src/modules/app/src/app_utils/app_multi_bond/app_multi_bond.h
+#	ble_sw/dk_apps/src/modules/ke/src/ke_task.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/wupct_handler.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/i2c_eeprom/i2c_eeprom.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/i2c_eeprom/i2c_eeprom.h
+#	ble_sw/dk_apps/src/plf/refip/src/driver/wkupct_quadec/wkupct_quadec.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/wkupct_quadec/wkupct_quadec.h
+Comment:
+
+    Fixed a bug in the Keyboard application that affected the connection to
+    Apple devices. Fixed also a compiler error when MATRIX_SETUP == 7.
+ 
+    1. Updated i2c_eeprom driver.
+    2. Added i2c_eeprom driver and wkupct_quadec driver to the keyboard
+    application.
+    3. Patched ke_task_schedule() (ID #1642).
+
+ 
+===========================================================================
+Date: 24/02/2014
+Committed by: Vassilis Kaloudis
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/src/modules/app/api/app.h
+#	ble_sw/dk_apps/src/modules/app/src/app.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/bass/app_batt.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/bass/app_batt_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_fsm.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_leds.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_utils/app_multi_bond/app_multi_bond.c
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/da14580_scatter_config.h
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/da14580_stack_config.h
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/fh_keyboard_sdk.uvproj
+#	ble_sw/dk_apps/misc/rom_symdef_kb.txt
+#	ble_sw/dk_apps/scatterfiles/exchange_mem_case23_0x0HID_es3.sct
+#	ble_sw/dk_apps/src/ip/ble/hl/src/host/gap/gapm/gapm.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/hogp/hogpd/hogpd.c
+#	ble_sw/dk_apps/src/ip/ble/ll/src/controller/em/em_map_ble.h
+#	ble_sw/dk_apps/src/ip/ble/ll/src/controller/em/em_map_ble_user.h
+#	ble_sw/dk_apps/src/ip/ble/ll/src/rwble/rwble.c
+#	ble_sw/dk_apps/src/modules/app/api/app_api.h
+#	ble_sw/dk_apps/src/modules/app/api/app_task_handlers.h
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/bass/app_batt.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_config.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_debug.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_fsm.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_fsm.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_key_matrix.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_leds.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_leds.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_matrix.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_proj.h
+#pp_project/keyboard/app_kbd_proj_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_proj_task.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_scan_fsm.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_kbd_scan_fsm.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_keyboard.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_keyboard.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_keyboard_matrix.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_keyboard_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_keyboard_proj.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_keyboard_proj_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_keyboard_proj_task.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/i2c_eeprom.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/i2c_eeprom.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/system/app_sleep.h
+#pp_project/keyboard/system/periph_setup.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/system/periph_setup.h
+#	ble_sw/dk_apps/src/modules/app/src/app_sec_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_utils/app_alt_pair/app_alt_pair.c
+#	ble_sw/dk_apps/src/modules/app/src/app_utils/app_alt_pair/app_alt_pair.h
+#	ble_sw/dk_apps/src/modules/app/src/app_utils/app_multi_bond/app_multi_bond.c
+#	ble_sw/dk_apps/src/modules/app/src/app_utils/app_multi_bond/app_multi_bond.h
+#	ble_sw/dk_apps/src/modules/nvds/src/nvds.c
+#	ble_sw/dk_apps/src/modules/rwip/api/rwip_config.h
+#	ble_sw/dk_apps/src/modules/rwip/src/rwip.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/arch_sleep.h
+#	ble_sw/dk_apps/src/plf/refip/src/arch/boot/rvds/boot_vectors.s
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_main.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_sleep.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/jump_table.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/wupct_handler.c
+Comment:
+
+    1. Ported Keyboard application to ES5.
+    2. Fixed a bug in kernel timers (PATCHED).
+
+    Added the function app_timer_set() which ensures that the delay parameter
+    of the call to ke_timer_set() is within limits.
+	
+===========================================================================
+Date: 20/02/2014
+Committed by: Panagiotis Panou
+Type: FEATURE
+#
+#Files
+#	ble_sw/tools/prod_test/prod_test_cmds/prodtest/commands.c
+#	ble_sw/tools/prod_test/prod_test_cmds/prodtest/prodtest.vcxproj
+Comment:
+
+    Customer production test tool:
+    1. Handles the new version of the "Stop RX test with readback values" return message that includes RSSI.
+    2. Eliminated linker warning.
+	 
+===========================================================================
+Date: 20/02/2014
+Committed by: damaskakos manos
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/patch_obj/lld.obj
+#	ble_sw/dk_apps/patch_obj/lld_data.obj
+#	ble_sw/dk_apps/patch_obj/lld_evt.obj
+#	ble_sw/dk_apps/patch_obj/llm.obj
+#	ble_sw/dk_apps/patch_obj/pll_vcocal_lut.obj
+#	ble_sw/dk_apps/patch_obj/rf_calibration.obj
+#	ble_sw/license.txt
+Comment:
+
+    - Removed patch_obj dir
+    - Added CRC32 code in license file
+
+ 
+===========================================================================
+Date: 19/02/2014
+Committed by: George Zapantes
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/keil_projects/accelerometer/dice/fh_dice_demo.uvproj
+#	ble_sw/dk_apps/keil_projects/prod_test/prod_test_ES5/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/prod_test/prod_test_ES5/da14580_stack_config.h
+#	ble_sw/dk_apps/keil_projects/prod_test/prod_test_ES5/prod_es5.uvproj
+#	ble_sw/dk_apps/misc/rom_symdef_ES5_Prod_Test.txt
+#	ble_sw/dk_apps/scatterfiles/production_ES5.sct
+#	ble_sw/dk_apps/src/ip/ble/ll/src/rwble/rwble.c
+#	ble_sw/dk_apps/src/modules/app/api/app_api.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/custom_gtl_eif.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/custom_gtl_hci.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/custom_lld.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/custom_lld_data.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/custom_lld_evt.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/customer_prod.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/customer_prod.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/system/app_sleep.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/system/periph_setup.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/system/periph_setup.c.bak
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/system/periph_setup.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prod_test/system/periph_setup.h.bak
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/jump_table.c
+Comment:
+
+    Production test project and application added
+
+
+===========================================================================
+Date: 19/02/2014
+Committed by: Panagiotis Panou
+Type: FEATURE
+#
+#Files
+#	ble_sw/host_apps/windows/proximity/monitor/include/app.h
+#	ble_sw/host_apps/windows/proximity/monitor/src/app.c
+#	ble_sw/host_apps/windows/proximity/monitor/src/app_task.c
+#	ble_sw/host_apps/windows/spota/initiator/include/app.h
+#	ble_sw/host_apps/windows/spota/initiator/src/app.c
+#	ble_sw/host_apps/windows/spota/initiator/src/app_task.c
+#	ble_sw/tools/connection_manager/application/hci_lib/include/host_hci.h
+#	ble_sw/tools/connection_manager/application/hci_lib/src/hci_task.c
+#	ble_sw/tools/connection_manager/application/hci_lib/src/host_hci.c
+Comment:
+
+    1. Respond with a GAPC_CONNECTION_CFM on GAPC_CONNECTION_REQ_IND in the following windows applications:
+        a. Proximity Monitor
+        b. Spota Initiator
+        c. Connection Manager dll
+    2. Connection Manager dll: Respond with a GATTC_WRITE_CMD_CFM on GATTC_WRITE_CMD_IND instead of the using the L2CC_PDU_SEND_REQ workaround.
+
+ 
+
+===========================================================================
+Date: 19/02/2014
+Committed by: damaskakos manos
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/keil_projects/spota/spotar_fh/fh_spotar.uvproj
+Comment:
+
+    SPOTAR: Changed debug level to 3
+
+
+===========================================================================
+Date: 19/02/2014
+Committed by: Konstantinos Dagres
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe/da14580_stack_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe/fe_proxm_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe_usb/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe_usb/da14580_stack_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe_usb/fe_usb_proxm_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe/da14580_stack_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe/fe_proxr.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe_usb/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe_usb/da14580_stack_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe_usb/fe_usb_proxr.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fh/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fh/da14580_stack_config.h
+#	ble_sw/dk_apps/keil_projects/spota/spotar_fh/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/spota/spotar_fh/da14580_stack_config.h
+#	ble_sw/dk_apps/keil_projects/spota/spotar_fh/fh_spotar.uvproj
+#	ble_sw/dk_apps/keil_projects/template/template_fh/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/template/template_fh/da14580_stack_config.h
+#	ble_sw/dk_apps/keil_projects/template/template_fh/fh_project_template.uvproj
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/bass/app_batt.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/bass/app_batt.h
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/bass/app_batt_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/findme/app_findme.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/findme/app_findme_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/findme/app_findme_task.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fh/app_proxr_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fh/system/periph_setup.c
+#	ble_sw/dk_apps/src/modules/app/src/app_task.c
+Comment:
+
+     1. Fixing bug in param update complete (app_task.h)
+     2. Remove warnings in app_bat and app_findme
+     3. Remove rf_riplle.c from projects.
+     4. CFG_CHNL_ASSESS move in da14580_stack_config.h
+
+
+===========================================================================
+Date: 19/02/2014
+Committed by: damaskakos manos
+Type: FEATURE
+#
+#Files
+#	ble_sw/tools/flash_programmer/flashprogrammer.uvproj
+#	ble_sw/tools/flash_programmer/src/programmer.c
+Comment:
+
+    Flash Programmer: Added EEPROM wtite support
+
+
+===========================================================================
+Date: 19/02/2014
+Committed by:  Isaak Solomonidis
+Type: FEATURE
+#
+#Files
+#	ble_sw/peripheral_examples/include/pwm_test.h
+#	ble_sw/dk_apps/src/plf/refip/src/driver/pwm/pwm.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/pwm/pwm.h
+#	ble_sw/dk_apps/src/plf/refip/src/driver/spi/spi.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/wkupct_quadec/wkupct_quadec.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/wkupct_quadec/wkupct_quadec.h
+#	ble_sw/peripheral_examples/580_peripheral_setup.uvproj
+#	ble_sw/peripheral_examples/include/periph_setup.h
+#	ble_sw/peripheral_examples/src/DA1450_examples.c
+#	ble_sw/peripheral_examples/src/interrupts.c
+#	ble_sw/peripheral_examples/src/peripherals.c
+#	ble_sw/peripheral_examples/src/pwm_test.c
+#	ble_sw/peripheral_examples/src/quad_decoder_test.c
+#	ble_sw/peripheral_examples/startup/startup_CMSDK_CM0.s
+Comment:
+
+    Added pwm_test.h
+
+    Added pwm driver (pwm.c, pwm.h), added pwm0,1 (buzzer melody) and pwm2..4 test in
+    peripheral examples. reviewed wkupct_quadec, SWTIM_Handler.
+
+ 
+===========================================================================
+Date: 18/02/2014
+Committed by: damaskakos manos
+Type: FEATURE
+#
+#Files
+#	ble_sw/tools/flash_programmer/flashprogrammer.uvproj
+#	ble_sw/tools/flash_programmer/include/gpio_periph_setup.h
+#	ble_sw/tools/flash_programmer/include/otpc.h
+#	ble_sw/tools/flash_programmer/include/periph_setup.h
+#	ble_sw/tools/flash_programmer/include/peripherals.h
+#	ble_sw/tools/flash_programmer/include/programmer.h
+#	ble_sw/tools/flash_programmer/include/uart.h
+#	ble_sw/tools/flash_programmer/misc/serial_out.txt
+#	ble_sw/tools/flash_programmer/src/crc32.c
+#	ble_sw/tools/flash_programmer/src/otpc.c
+#	ble_sw/tools/flash_programmer/src/peripherals.c
+#	ble_sw/tools/flash_programmer/src/programmer.c
+#	ble_sw/tools/flash_programmer/src/uart.c
+#	ble_sw/tools/flash_programmer/startup/startup_CMSDK_CM0.s
+#	ble_sw/tools/flash_programmer/startup/system_CMSDK.c
+#	ble_sw/tools/flash_programmer/sysram.ini
+Comment:
+
+    Added programmer for extrenal memory devices (flash and eeprom)
+
+
+
+===========================================================================
+Date: 17/02/2014
+Committed by: Panagiotis Panou
+Type: FEATURE
+#
+#Files
+#	ble_sw/host_apps/windows/spota/initiator/include/app.h
+Comment:
+
+    SPOTA Initiator Windows host application: SPOTA primary service UUID was changed to 0xFEF5.
+
+
+===========================================================================
+Date: 17/02/2014
+Committed by: Konstantinos Dagres
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/bass/app_batt.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/bass/app_batt.h
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/bass/app_batt_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fh/system/app_sleep.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fh/system/periph_setup.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fh/system/periph_setup.h
+Comment:
+
+      1. Use new wkupct_quadec driver in fh proximity reporter.
+      2. Fixing issue with battery polling timer
+
+ 
+
+===========================================================================
+Date: 17/02/2014
+Committed by: Isaak Solomonidis
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/src/plf/refip/src/driver/i2c_eeprom/i2c_eeprom.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/i2c_eeprom/i2c_eeprom.h
+#	ble_sw/dk_apps/src/plf/refip/src/driver/spi_flash/spi_flash.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/spi_flash/spi_flash.h
+#	ble_sw/dk_apps/src/plf/refip/src/driver/wkupct/wkupct_driver.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/wkupct/wkupct_driver.h
+#	ble_sw/dk_apps/src/plf/refip/src/driver/wkupct_quadec/wkupct_quadec.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/wkupct_quadec/wkupct_quadec.h
+#	ble_sw/peripheral_examples/580_peripheral_setup.uvproj
+#	ble_sw/peripheral_examples/include/periph_setup.h
+#	ble_sw/peripheral_examples/include/quad_decoder_test.h
+#	ble_sw/peripheral_examples/src/DA1450_examples.c
+#	ble_sw/peripheral_examples/src/eeprom_test.c
+#	ble_sw/peripheral_examples/src/interrupts.c
+#	ble_sw/peripheral_examples/src/peripherals.c
+#	ble_sw/peripheral_examples/src/quad_decoder_test.c
+#	ble_sw/peripheral_examples/src/simple_peripherals.c
+#	ble_sw/peripheral_examples/src/spi_test.c
+Comment:
+
+    1) Added Quadrature Decoder Driver (merged with wakeup timer)
+    2) Added Quadrature Decoder examples
+    3) EEPROM, SPI drivers & examples reviewed
+
+
+
+===========================================================================
+Date: 14/02/2014
+Committed by: damaskakos manos
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/spota/spotar/spotar.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/spotar/app_spotar.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/spotar_fh/app_spotar_proj.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/spotar_fh/common/periph_setup.c
+Comment:
+
+    SPOTAR service 16bit UUID 0xFEF5 has been added to the profile
+
+
+===========================================================================
+Date: 13/02/2014
+Committed by: damaskakos manos
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/keil_projects/spota/spotar_fh/fh_spotar.uvproj
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/spotar/app_spotar.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/spotar/app_spotar.h
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/spotar/app_spotar_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/spotar_fh/common/periph_setup.h
+#	ble_sw/dk_apps/src/plf/refip/src/driver/i2c_eeprom/i2c_eeprom.h
+Comment:
+
+    SPOTAR APP: Changes to support eeprom patching
+
+  
+
+===========================================================================
+Date: 13/02/2014
+Committed by: Konstantinos Dagres 
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/src/modules/app/api/app_task_handlers.h
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/bass/app_batt.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/bass/app_batt_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/prox_reporter/app_proxr.c
+#pp_profiles/prox_reporter/app_proxr.h
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/prox_reporter/app_proxr_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fh/app_proxr_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fh/common/periph_setup.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fh/common/periph_setup.h
+#	ble_sw/dk_apps/src/plf/refip/src/driver/gpio/gpio.c
+Comment:
+
+      Fix compilation error in gpio.h
+      Define alert LED GPIO in proixmity reporter application
+      Fix error with battery polling time.
+
+
+===========================================================================
+Date: 12/02/2014
+Committed by: George Zapantes
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/keil_projects/accelerometer/dice/fh_dice_demo.uvproj
+#	ble_sw/dk_apps/keil_projects/hid/kbd_tester/fh_kbd_tester.uvproj
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/fh_keyboard_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe/fe_proxm_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe/fe_proxr.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fh/fh_proxr_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/spota/spotar_fh/fh_spotar.uvproj
+#	ble_sw/dk_apps/keil_projects/stream/server_tx/fh_stream_tx.uvproj
+#	ble_sw/dk_apps/keil_projects/template/template_fh/fh_project_template.uvproj
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/accel/app_accel_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/dice/app_accel_proj_task.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/battery/battery.c
+Comment:
+
+    Added -bss_threshold=0 in C flags to have ZI variables placed in ZI region and avoid load region in hex file
+
+
+===========================================================================
+Date: 12/02/2014
+Committed by: damaskakos manos
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe_usb/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe_usb/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fh/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fh/fh_proxr_sdk.uvproj
+#	ble_sw/dk_apps/scatterfiles/exchange_mem_case23_0x0_es3.sct
+#	ble_sw/dk_apps/src/ip/ble/hl/src/host/gap/gapm/gapm.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/accel/accel.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/accel/accel_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/anp/anpc/anpc.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/anp/anpc/anpc_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/anp/anps/anps.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/anp/anps/anps_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/bas/basc/basc.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/bas/basc/basc_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/bas/bass/bass.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/bas/bass/bass_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/blp/blpc/blpc.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/blp/blpc/blpc_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/blp/blps/blps.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/blp/blps/blps_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/cscp/cscpc/cscpc.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/cscp/cscpc/cscpc_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/cscp/cscps/cscps.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/cscp/cscps/cscps_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/dis/disc/disc.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/dis/disc/disc_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/dis/diss/diss.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/dis/diss/diss_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/find/findl/findl.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/find/findl/findl_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/find/findt/findt.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/find/findt/findt_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/glp/glpc/glpc.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/glp/glpc/glpc_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/glp/glps/glps.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/glp/glps/glps_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/hogp/hogpbh/hogpbh.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/hogp/hogpbh/hogpbh_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/hogp/hogpd/hogpd.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/hogp/hogpd/hogpd_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/hogp/hogprh/hogprh.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/hogp/hogprh/hogprh_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/hrp/hrpc/hrpc.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/hrp/hrpc/hrpc_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/hrp/hrps/hrps.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/hrp/hrps/hrps_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/htp/htpc/htpc.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/htp/htpc/htpc_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/htp/htpt/htpt.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/htp/htpt/htpt_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/pasp/paspc/paspc.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/pasp/paspc/paspc_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/pasp/pasps/pasps.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/pasp/pasps/pasps_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/prox/proxm/proxm.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/prox/proxm/proxm_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/prox/proxr/proxr.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/prox/proxr/proxr_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/rscp/rscpc/rscpc.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/rscp/rscpc/rscpc_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/rscp/rscps/rscps.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/rscp/rscps/rscps_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/sample128/sample128.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/sample128/sample128_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/scpp/scppc/scppc.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/scpp/scppc/scppc_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/scpp/scpps/scpps.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/scpp/scpps/scpps_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/spota/spotar/spotar.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/spota/spotar/spotar_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/streamdata/streamdatad/streamdatad.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/streamdata/streamdatad/streamdatad_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/streamdata/streamdatah/streamdatah.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/streamdata/streamdatah/streamdatah_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/tip/tipc/tipc.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/tip/tipc/tipc_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/tip/tips/tips.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/tip/tips/tips_task.c
+#	ble_sw/dk_apps/src/ip/ble/ll/src/controller/em/em_map_ble.h
+#	ble_sw/dk_apps/src/ip/ble/ll/src/controller/lld/lld.c
+#	ble_sw/dk_apps/src/ip/ble/ll/src/controller/lld/lld_data.c
+#	ble_sw/dk_apps/src/ip/ble/ll/src/controller/lld/lld_evt.c
+#	ble_sw/dk_apps/src/ip/ble/ll/src/controller/llm/llm.c
+#	ble_sw/dk_apps/src/ip/ble/ll/src/rwble/rwble.c
+#	ble_sw/dk_apps/src/modules/app/api/app_api.h
+#	ble_sw/dk_apps/src/modules/app/src/app.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/accel/app_accel_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/basc/app_basc.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/basc/app_basc_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/bass/app_batt.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/bass/app_batt_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/disc/app_disc.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/disc/app_disc_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/findme/app_findme_task.h
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/ht/app_ht.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/ht/app_ht_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/neb/app_neb.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/neb/app_neb_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/prox_reporter/app_proxr.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/scppc/app_scppc.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/scppc/app_scppc_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/spotar/app_spotar.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/dice/app_accel_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/dice/app_accel_proj_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/dice/app_batt_adc.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/kbd_tester/app_kbdtest_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/keyboard/app_keyboard_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_monitor_fe/common/periph_setup.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fh/app_proxr_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fh/common/app_sleep.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fh/common/periph_setup.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/spotar_fh/app_spotar_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/stream_server_tx/app_stream_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/template_fh/app_template_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_sec.c
+#	ble_sw/dk_apps/src/modules/app/src/app_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_utils/app_alt_pair/app_alt_pair.c
+#	ble_sw/dk_apps/src/modules/ke/src/ke_task.c
+#	ble_sw/dk_apps/src/modules/nvds/src/nvds.c
+#	ble_sw/dk_apps/src/modules/rf/src/pll_vcocal_lut.c
+#	ble_sw/dk_apps/src/modules/rf/src/rf_580.c
+#	ble_sw/dk_apps/src/modules/rf/src/rf_calibration.c
+#	ble_sw/dk_apps/src/modules/rwip/src/rwip.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/boot/rvds/system_ARMCM0.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_main.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_sleep.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/nmi_handler.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/accel/lis3dh_driver.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/battery/battery.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/i2c_eeprom/i2c_eeprom.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/i2c_eeprom/i2c_eeprom.h
+#	ble_sw/dk_apps/src/plf/refip/src/driver/uart/uart.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/uart/uart_init.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/wkupct/wkupct_driver.c
+Comment:
+
+      1. Set retained variables as zero intialized.
+      2. Modifications in app_api.h. Added app_db_init_complete_func. modified
+      app_connection_func.
+
+
+===========================================================================
+Date: 11/02/2014
+Committed by: damaskakos manos
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/keil_projects/spota/spotar_fh/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/spota/spotar_fh/fh_spotar.uvproj
+#	ble_sw/dk_apps/misc/rom_symdef.txt
+#	ble_sw/dk_apps/scatterfiles/exchange_mem_es3_spotar.sct
+#	ble_sw/dk_apps/src/dialog/include/spi.h
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/spota/spotar/spotar.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/spota/spotar/spotar_task.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/rwble_hl/rwble_hl_config.h
+#	ble_sw/dk_apps/src/modules/app/api/app_api.h
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/spotar/app_spotar.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/spotar/app_spotar.h
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/spotar/app_spotar_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/spotar/app_spotar_task.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/spotar_fh/app_spotar_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/spotar_fh/app_spotar_proj.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/spotar_fh/common/periph_setup.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/spotar_fh/common/periph_setup.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/stream_server_tx/app_stream_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/template_fh/app_template_proj.c
+#	ble_sw/dk_apps/src/modules/nvds/src/nvds.c
+#	ble_sw/dk_apps/src/modules/rf/src/rf_calibration.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_main.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/flash/flash.h
+#	ble_sw/dk_apps/src/plf/refip/src/driver/i2c_eeprom/i2c_eeprom.c
+Comment:
+
+    Ported SPOTAR application from es4
+
+
+ 
+
+===========================================================================
+Date: 10/02/2014
+Committed by: damaskakos manos
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/src/ip/ble/hl/src/host/gap/gap_version.h
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/accel/app_accel_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/dice/app_accel_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/dice/app_accel_proj_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/dice/app_accel_proj_task.h
+#	ble_sw/dk_apps/src/modules/common/api/co_version.h
+#	ble_sw/dk_apps/src/modules/ke/src/ke_task.c
+#	ble_sw/dk_apps/src/modules/rf/src/rf_580.c
+Comment:
+
+    - Version header files merge
+    - TRIM values from OTP merge
+    - Accel advertising interval set to 20ms
+
+
+===========================================================================
+Date: 10/02/2014
+Committed by:  Konstantinos Dagres
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/keil_projects/template/template_fh/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/template/template_fh/fh_project_template.uvproj
+#	ble_sw/dk_apps/src/ip/ble/hl/src/host/gap/gapm/gapm.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/prox/proxr/proxr_task.c
+#	ble_sw/dk_apps/src/modules/app/api/app_api.h
+#	ble_sw/dk_apps/src/modules/app/src/app.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/bass/app_batt.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/bass/app_batt.h
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/diss/app_dis.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/diss/app_dis.h
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/diss/app_dis_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/diss/app_dis_task.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fh/app_proxr_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fh/app_proxr_proj.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fh/common/app_sleep.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/template_fh/app_template_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/template_fh/app_template_proj.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/template_fh/common/app_sleep.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/template_fh/common/periph_setup.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/template_fh/common/periph_setup.h
+#	ble_sw/dk_apps/src/modules/app/src/app_sec.c
+#	ble_sw/dk_apps/src/modules/app/src/app_sec_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_task.c
+#	ble_sw/dk_apps/src/modules/nvds/src/nvds.c
+#	ble_sw/dk_apps/src/modules/rf/api/rf_580.h
+#	ble_sw/dk_apps/src/modules/rf/src/rf_580.c
+#	ble_sw/dk_apps/src/modules/rwip/api/rwip_config.h
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_main.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_sleep.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/system_settings.h
+#	ble_sw/dk_apps/src/plf/refip/src/driver/gpio/gpio.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/i2c_eeprom/i2c_eeprom.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/i2c_eeprom/i2c_eeprom.h
+#	ble_sw/dk_apps/src/plf/refip/src/driver/spi/spi.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/spi/spi.h
+#	ble_sw/dk_apps/src/plf/refip/src/driver/spi_flash/spi_flash.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/spi_flash/spi_flash.h
+Comment:
+
+      1. Add template(empty) project.
+      2. New i2c and spi, spi_flash drivers.
+      3. Update rf settings/ Create system settings header file to keep
+      preferred settings.
+      4. Minor modifications in app_batt code.
+
+===========================================================================
+Date: 03/02/2014
+Committed by: Konstantinos Dagres
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe_usb/fe_usb_proxm_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe/fe_proxr.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe_usb/fe_usb_proxr.uvproj
+#	ble_sw/dk_apps/src/ip/ble/ll/src/rwble/rwble.c
+#	ble_sw/dk_apps/src/modules/app/api/app_api.h
+#	ble_sw/dk_apps/src/modules/app/api/app_task_handlers.h
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/diss/app_dis.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/diss/app_dis_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/diss/app_dis_task.h
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/prox_reporter/app_proxr.h
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/prox_reporter/app_proxr_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_profiles/prox_reporter/app_proxr_task.h
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_monitor_fe_usb/common/periph_setup.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fe/common/periph_setup.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fe_usb/common/periph_setup.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fh/app_proxr_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_task.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/arch.h
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_main.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_sleep.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/jump_table.c
+Comment:
+
+     1. Fixing full embedded proximity profiles.
+     2. Addition of app_adv_direct_complete() and app_adv_undirect_complete()
+     hooks in app_api.h. Added in proximity reporter project. Must be added in
+     all fh projects.
+
+
+===========================================================================
+Date: 31/01/2014
+Committed by: Konstantinos Dagres
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/src/modules/app/api/app.h
+#	ble_sw/dk_apps/src/modules/app/api/app_api.h
+#	ble_sw/dk_apps/src/modules/app/api/app_task_handlers.h
+#	ble_sw/dk_apps/src/modules/app/src/app.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_monitor_fe/common/periph_setup.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fh/app_proxr_proj.c
+#	ble_sw/dk_apps/src/modules/app/src/app_project/prox_reporter_fh/app_proxr_proj.h
+#	ble_sw/dk_apps/src/modules/app/src/app_sec_task.c
+#	ble_sw/dk_apps/src/modules/app/src/app_task.c
+#	ble_sw/dk_apps/src/modules/nvds/src/nvds.c
+Comment:
+
+       Full Embedded proximity monitor enabled for DA14580/ES5.
+       Building advertise string moved to app_project_proj file (proximity
+       reporter only).
+
+===========================================================================
+Date: 27/01/2014
+Committed by: Konstantinos Dagres
+Type: FEATURE
+#
+#Files
+
+#	ble_sw/
+Comment:
+
+      1. New application code structure for ES5.
+      2. Add and update drivers(spi, spi_flash, i2c_eeprom, adc, battery,
+      wkupct)
+      3. New peripheral examples project utilizing drivers'code.
+
+
+===========================================================================
+Date: 17/01/2014
+Committed by: damaskakos manos
+Type: FEATURE
+#
+#Files
+#	ble_sw/dk_apps/keil_projects/accelerometer/dice/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/accelerometer/dice/fh_dice_demo.uvproj
+#	ble_sw/dk_apps/keil_projects/hid/kbd_tester/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/hid/kbd_tester/fh_kbd_tester.uvproj
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/hid/keyboard/fh_keyboard_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe/fe_proxm_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe_usb/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/monitor_fe_usb/fe_usb_proxm_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe/fe_proxr.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe_usb/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fe_usb/fe_usb_proxr.uvproj
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fh/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/proximity/reporter_fh/fh_proxr_sdk.uvproj
+#	ble_sw/dk_apps/keil_projects/spota/spotar_fh/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/spota/spotar_fh/fh_spotar.uvproj
+#	ble_sw/dk_apps/keil_projects/stream/server_tx/da14580_config.h
+#	ble_sw/dk_apps/keil_projects/stream/server_tx/fh_stream_tx.uvproj
+#	ble_sw/dk_apps/misc/rom_symdef.txt
+#	ble_sw/dk_apps/misc/rom_symdef_kb.txt
+#	ble_sw/dk_apps/misc/sysram_case23.ini
+#	ble_sw/dk_apps/scatterfiles/exchange_mem_case23_0x0HID_es3.sct
+#	ble_sw/dk_apps/scatterfiles/exchange_mem_case23_0x0_es3.sct
+#	ble_sw/dk_apps/scatterfiles/exchange_mem_case_es3_stream.sct
+#	ble_sw/dk_apps/src/ip/ble/hl/src/host/gap/gap_cfg.h
+#	ble_sw/dk_apps/src/ip/ble/hl/src/host/gap/gapm/gapm.c
+#	ble_sw/dk_apps/src/ip/ble/hl/src/profiles/prf_utils.c
+#	ble_sw/dk_apps/src/ip/ble/ll/src/controller/em/em_map_ble_user.h
+#	ble_sw/dk_apps/src/ip/ble/ll/src/rwble/rwble.c
+#	ble_sw/dk_apps/src/modules/nvds/api/nvds.h
+#	ble_sw/dk_apps/src/modules/nvds/src/nvds.c
+#	ble_sw/dk_apps/src/modules/rf/src/pll_vcocal_lut.c
+#	ble_sw/dk_apps/src/modules/rf/src/rf_580.c
+#	ble_sw/dk_apps/src/modules/rf/src/rf_calibration.c
+#	ble_sw/dk_apps/src/modules/rf/src/rf_ripple.c
+#	ble_sw/dk_apps/src/modules/rwip/api/rwip.h
+#	ble_sw/dk_apps/src/modules/rwip/api/rwip_config.h
+#	ble_sw/dk_apps/src/modules/rwip/src/rwip.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/arch.h
+#	ble_sw/dk_apps/src/plf/refip/src/arch/boot/rvds/boot_vectors.s
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_main.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/arch_sleep.c
+#	ble_sw/dk_apps/src/plf/refip/src/arch/main/ble/jump_table.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/gpio/gpio.c
+#	ble_sw/dk_apps/src/plf/refip/src/driver/gpio/gpio.h
+Comment:
+
+    ES5 initial porting.
+    - Major change is that SYSRAM is not remapped to 0, so firmware is build at 0x20000000
+    - There is the possibility for firmware to remap to 0 by setting
+    __REMAP_SYSRAM EQU 1
+    in boot_vectors.s
+    - New symdefs files for ES5 ROM
+    - Scatterfiles for 0x20000000. Also scatterfiles have the ability for conditional settings based on da14580_config.h preprocessor directives
+    - CFG preprocessor settings moved from project to da14580_config.h in project directory
+    - Updated jump_table structure and members for new additions
+    - Updated NVDS (channel assesment)
+    - sysram_case23.ini does not remap SYSRAM but loads SP and PC from 0x20000000
+
+

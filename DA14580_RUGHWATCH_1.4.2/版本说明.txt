@@ -1,0 +1,42 @@
+版本说明：基于JPlus修改
+DA14580_RUGHWATCH_1.1	最小工程，有信号，可连接。
+DA14580_RUGHWATCH_1.2	将外设驱动添加完成。
+DA14580_RUGHWATCH_1.3	添加了UART1，Timer功能。2015-12-17
+DA14580_RUGHWATCH_1.3.7	HeartRate服务已添加，但数据上传接口还未实现。2015-12-22
+DA14580_RUGHWATCH_1.3.8 HeartRate服务添加成功，数据上传成功，可以监听，附带Body Sensor Location描述
+DA14580_RUGHWATCH_1.3.9 成功添加了Accelerate服务，但有个问题，Accelerate和HeartRate不能同时打开，否则无信号，猜想可能是服务数量过多，
+			经试验，关闭CFG_PRF_FMPL或CFG_PRF_BASS服务（其他的没试）都可以让HRPS和ACCEL共存，这里关闭掉了CFG_PRF_FMPL功能，具体原因后续会深入研究。
+			但该版本还未将Accelerate数据接口完善。
+
+DA14580_RUGHWATCH_1.4.0 实现了Accel服务的数据收发，但3轴数据时8位每次发送。
+DA14580_RUGHWATCH_1.4.1 实现了Accelerate数据16位发送。
+
+
+SPI Flash：成功焊接现象，点击擦除或者烧录时，PC与DA14580开始会有一个交互过程，现象是串口工具的读写灯开始会交替闪烁几次，这种现象一般可以说明Flash焊接没问题。
+
+
+接口说明：
+
+1、心率接口： HearRate
+
+心率服务接收的是一个心率值，心率值的计算是在Da14580内部实现的。
+
+直接调用：void app_heart_rate_set_value(uint8_t heart_rate_val);
+
+心率值参数：heart_rate_val
+
+
+2、加速度接口：	Accel
+
+加速度需要实时上传3轴数据（16位），这里0.1s上传一次，连接成功后开始上传，断开后停止上传。
+
+在定时器处理函数：int app_accel_timer_handler(... ...)内部去调用上传数据函数：
+
+updateData_test();//用来模拟3轴数据上传，验证上层服务，与底层驱动无关。
+
+updateData(); //将实际得到的3轴数据赋值给变量static AxesRaw_t data，以实现3轴数据实时上传。
+
+
+
+
+
